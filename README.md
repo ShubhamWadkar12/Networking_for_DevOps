@@ -1,154 +1,65 @@
-# 🌐 Networking Commands & Concepts for DevOps Engineers 
+# 🌐 Networking Basics
 
 ---
 
-## 🧠 Key Networking Concepts for DevOps
+## 📌 Why Networking Matters in DevOps
+DevOps engineers work with:
+- Cloud platforms (AWS / Azure / GCP)
+- Containers & orchestration (Docker & Kubernetes)
+- CI/CD systems
+- Distributed applications & microservices
+- Security, firewalls & load balancing
 
-| Concept | Why DevOps uses it |
-|---------|---------------------|
-| **IP Address** | Identify servers and containers |
-| **Ports** | Connect to services (e.g., 80,443,22,3306,8080) |
-| **DNS** | Convert domain → IP during deployment |
-| **Firewall / Security Groups** | Allow / block ports in cloud |
-| **Routing** | Check network paths in cloud/VPC |
-| **Load Balancer** | Distribute traffic between servers |
-| **Reverse Proxy (Nginx/HAProxy)** | Manage routing/API access |
-| **TCP vs UDP** | Debug connectivity & performance |
-| **HTTP Status Codes** | Debug API, website issues |
-| **SSH** | Remote server access |
-| **Packets & Monitoring** | Check network flow & issues |
-
----
-
-# 🛠 Networking Commands DevOps Uses Daily
+Without networking knowledge, it's impossible to debug issues like:
+- Application not reachable
+- DNS failure
+- Port blocked / service down
+- Routing or latency issues
+- Load balancer failures
+- Cross-VPC / microservice communication issues
 
 ---
 
-## 1️⃣ Check Connectivity
+# 🧠 Core Networking Concepts for DevOps
 
-```bash
-ping google.com
-ping 8.8.8.8
-```
+### **IP Address**
+A unique identification given to a device inside a network.
+- **Private IP:** Used inside internal networks (e.g., 192.168.x.x)
+- **Public IP:** Used on the internet
+- **IPv4 / IPv6:** Different addressing versions
 
----
+### **Subnet**
+Divides a large network into smaller networks for better performance and security.
+- Example: `/24`, `/16`, `/30` etc.
 
-## 2️⃣ Check DNS & domain → IP
+### **CIDR**
+Short notation representing subnet size.
+- Example: `10.0.0.0/16` = large network
 
-```bash
-nslookup github.com
-dig google.com +short
+### **Gateway**
+The device that connects local network to another network (like the internet).
 
-```
----
+### **DNS (Domain Name System)**
+Converts human-readable names into IP addresses.
+- Example: `google.com → 142.xx.xx.xx`
 
-### 3️⃣ traceroute / tracert
-Check the path your packets take to reach destination.
+### **NAT (Network Address Translation)**
+Converts private IP ↔ public IP to allow devices inside a private network to access external networks.
 
-```bash
-traceroute google.com         # Linux
-tracert google.com            # Windows
-```
----
+### **Firewall**
+Security layer that allows or blocks specific network traffic based on rules.
 
-### 4️⃣ Test HTTP / API Response
+### **Ports**
+Different entry points for different application services.
+- Example: 80 (HTTP), 443 (HTTPS), 22 (SSH)
 
-```
-curl https://example.com
-curl -I https://example.com
-curl -v https://example.com
-
-curl -X GET https://api.example.com/users
-
-```
----
-
-### 5️⃣ Test If Port Is Reachable (DB, App, Services)
-```
-nc -zv server-ip 80
-nc -zv 192.168.1.10 8080
-
-telnet server-ip 80      # old way
-```
----
-
-### 6️⃣ Check Open Ports & Running Services
-```
-ss -tulpn
-ss -tulpn | grep 8080
-
-netstat -tulpn         # older command
-```
-
-### 7️⃣ View Network Interfaces & IPs
-```
-ip a
-
-ipconfig    #older way
-
-```
----
-
-### 8️⃣ View Routing Table (Gateway / VPC / Subnet Issues)
-
-```
-ip route
-route -n
-```
----
-
-### 9️⃣ SSH to Remote Server
-```
-ssh user@server-ip
-ssh -i key.pem ubuntu@54.xx.xx.xx
-
-Copy files:
-
-scp file.txt ubuntu@server:/home/ubuntu/
-```
----
-
-### 🔟 Capture & Inspect Network Traffic (Deep Debugging)
-
-```
-sudo tcpdump -i eth0
-sudo tcpdump -i eth0 port 80
-sudo tcpdump -i eth0 -w capture.pcap
-```
-
-| Code    | Meaning                |
-| ------- | ---------------------- |
-| 200     | OK                     |
-| 301/302 | Redirect               |
-| 400     | Client error           |
-| 401     | Unauthorized           |
-| 403     | Forbidden              |
-| 404     | Not found              |
-| 500     | Server error           |
-| 502     | Bad gateway (LB issue) |
-| 503     | Service unavailable    |
-
-Check using:
-```
-curl -I https://google.com
-```
----
-
-Summary:
-
-| Task            | Command           |
-| --------------- | ----------------- |
-| Host Reachable? | `ping`            |
-| DNS working?    | `nslookup`, `dig` |
-| Route path?     | `traceroute`      |
-| Check site/API  | `curl`            |
-| Download file   | `wget`            |
-| IP addresses    | `ip a`            |
-| Routing         | `ip route`        |
-| Active services | `ss -tulpn`       |
-| Port reachable? | `nc -zv`          |
-| Connect server  | `ssh`             |
-| Transfer files  | `scp`, `sftp`     |
-| Capture packets | `tcpdump`         |
+### **Protocols**
+Rules that define data communication.
+- **TCP** → reliable
+- **UDP** → fast but not guaranteed
+- **HTTP/HTTPS** → web communication
+- **FTP / SSH / SMTP** → various services
 
 ---
+
+# 📦 Real DevOps Use Case Example (High-Level)
