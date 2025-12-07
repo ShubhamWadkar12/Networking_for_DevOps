@@ -1,5 +1,5 @@
 
-# 🌍 IP Address & Subnetting (Simple Words – DevOps Friendly)
+# 🌍 IP Address & Subnetting
 
 This guide explains **IP addresses, subnet masks, networks, hosts, and CIDR**  
 in the simplest possible way — useful for DevOps, cloud, networking & interviews.
